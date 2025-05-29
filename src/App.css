@@ -1,0 +1,109 @@
+button {
+    cursor: pointer;
+}
+
+.header {
+    text-align: center;
+}
+
+.list-style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.box .text-box {
+    width: 500px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.text-box span {
+    border-radius: 8px;
+    font-size: 18px;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+    left: 16px;
+    top: 12px;
+    position: relative;
+}
+
+.text-box.checked {
+    position: relative;
+    background-color: #f2f2f2;
+}
+
+.text-box.checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: black;
+}
+
+.insert-box {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.insert-box .input-box {
+    width: 500px;
+    height: 50px;
+}
+
+.box .input-box {
+    width: 500px;
+    height: 50px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding-left: 16px;
+    font-size: 18px;
+}
+
+.action-box {
+    display: flex;
+    gap: 12px;
+}
+
+.action-box .btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.action-box .btn.delete-btn {
+    background-color: #f93b3b;
+}
+
+.action-box .btn.edit-btn {
+    background-color: #ff9e38;
+}
+
+.action-box .btn.insert-btn {
+    background-color: #52cc26;
+}
+
+.action-box .btn.check-btn {
+    background-color: #3595fc;
+}
+
+
+
