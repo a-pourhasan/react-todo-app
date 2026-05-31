@@ -2,6 +2,7 @@ import './App.css';
 import List from "./components/List";
 import NewItem from "./components/NewItem";
 import Sidebar from "./components/Sidebar";
+import AddListModal from "./components/AddListModal";
 import {useState, useEffect} from "react";
 
 const STORAGE_KEY = 'todoItems';
@@ -42,6 +43,7 @@ function App() {
     const [list, setList] = useState([]);
     const [lists, setLists] = useState(DEFAULT_LISTS);
     const [activeList, setActiveList] = useState(DEFAULT_LISTS[0]);
+    const [showAddListModal, setShowAddListModal] = useState(false);
 
     useEffect(() => {
         const savedItems = localStorage.getItem(STORAGE_KEY);
@@ -146,25 +148,20 @@ function App() {
         localStorage.setItem(LISTS_STORAGE_KEY, JSON.stringify(newLists));
     };
 
-    const handleAddList = () => {
-        const listName = prompt('Enter list name:');
-        if (!listName?.trim()) return;
-
-        const colors = ['#64B5F6', '#BA68C8', '#81C784', '#FFB74D'];
-        const icons = ['fa-list', 'fa-briefcase', 'fa-shopping-cart', 'fa-star'];
+    const handleAddList = (listData) => {
         const newListId = `list-${Date.now()}`;
-
         const newList = {
             id: newListId,
-            name: listName.trim(),
-            color: colors[lists.length % colors.length],
-            icon: icons[lists.length % icons.length],
+            name: listData.name,
+            color: listData.color,
+            icon: listData.icon,
             taskCount: 0
         };
 
         const updatedLists = [...lists, newList];
         setLists(updatedLists);
         setActiveList(newList);
+        setShowAddListModal(false);
         localStorage.setItem(LISTS_STORAGE_KEY, JSON.stringify(updatedLists));
     };
 
@@ -175,7 +172,7 @@ function App() {
                 activeList={activeList}
                 onListSelect={setActiveList}
                 onDeleteList={handleDeleteList}
-                onAddList={handleAddList}
+                onAddList={() => setShowAddListModal(true)}
             />
             <main className="main-content">
                 <header className="content-header">
@@ -194,6 +191,11 @@ function App() {
                     <p className="empty-message">No tasks yet. Add one to get started!</p>
                 )}
             </main>
+            <AddListModal
+                isOpen={showAddListModal}
+                onClose={() => setShowAddListModal(false)}
+                onAddList={handleAddList}
+            />
         </div>
     );
 }
