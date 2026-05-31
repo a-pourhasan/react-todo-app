@@ -41,7 +41,7 @@ body {
     display: grid;
     grid-template-columns: 280px 1fr;
     min-height: 100vh;
-    background-color: var(--color-bg-main);
+    background: transparent;
 }
 
 .sidebar {
