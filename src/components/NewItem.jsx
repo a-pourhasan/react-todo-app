@@ -1,41 +1,53 @@
 import {useState} from "react";
 
 const NewItem = ({insertItem}) => {
-    const [task, setTask] = useState({
-        text: "",
-        checked: false,
-        editMode: false
-    });
+    const [taskText, setTaskText] = useState("");
 
-    const inputChange = (e) => {
-        setTask({
-            text: e.target.value,
-            checked: false,
-            editMode: false
-        });
+    const handleInputChange = (e) => {
+        setTaskText(e.target.value);
     };
 
-    const insertToList = () => {
-        insertItem(task);
-        setTask({
-            text: "",
-            checked: false,
-            editMode: false
-        });
+    const handleAddTask = () => {
+        if (taskText.trim()) {
+            insertItem({
+                text: taskText.trim(),
+                checked: false,
+                editMode: false
+            });
+            setTaskText("");
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleAddTask();
+        }
     };
 
     return (
         <div className="insert-box">
             <div className="action-box">
-                <button className="btn insert-btn" onClick={insertToList}>
-                    <i className="fas fa-plus"></i>
+                <button
+                    className="btn insert-btn"
+                    onClick={handleAddTask}
+                    aria-label="Add new task"
+                    title="Add new task"
+                >
+                    <i className="fas fa-plus" aria-hidden="true"></i>
                 </button>
             </div>
             <div className="input-box">
-                <input type="text" value={task.text} onChange={inputChange} />
+                <input
+                    type="text"
+                    value={taskText}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Enter a new task..."
+                    aria-label="New task input"
+                />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default NewItem;
