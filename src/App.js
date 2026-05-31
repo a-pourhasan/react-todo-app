@@ -146,6 +146,28 @@ function App() {
         localStorage.setItem(LISTS_STORAGE_KEY, JSON.stringify(newLists));
     };
 
+    const handleAddList = () => {
+        const listName = prompt('Enter list name:');
+        if (!listName?.trim()) return;
+
+        const colors = ['#64B5F6', '#BA68C8', '#81C784', '#FFB74D'];
+        const icons = ['fa-list', 'fa-briefcase', 'fa-shopping-cart', 'fa-star'];
+        const newListId = `list-${Date.now()}`;
+
+        const newList = {
+            id: newListId,
+            name: listName.trim(),
+            color: colors[lists.length % colors.length],
+            icon: icons[lists.length % icons.length],
+            taskCount: 0
+        };
+
+        const updatedLists = [...lists, newList];
+        setLists(updatedLists);
+        setActiveList(newList);
+        localStorage.setItem(LISTS_STORAGE_KEY, JSON.stringify(updatedLists));
+    };
+
     return (
         <div className="app-layout">
             <Sidebar
@@ -153,6 +175,7 @@ function App() {
                 activeList={activeList}
                 onListSelect={setActiveList}
                 onDeleteList={handleDeleteList}
+                onAddList={handleAddList}
             />
             <main className="main-content">
                 <header className="content-header">

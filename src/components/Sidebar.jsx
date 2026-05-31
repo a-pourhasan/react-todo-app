@@ -1,4 +1,4 @@
-const Sidebar = ({ lists, activeList, onListSelect, onDeleteList }) => {
+const Sidebar = ({ lists, activeList, onListSelect, onDeleteList, onAddList }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -30,7 +30,7 @@ const Sidebar = ({ lists, activeList, onListSelect, onDeleteList }) => {
           </div>
         ))}
       </nav>
-      <button className="add-list-btn">
+      <button className="add-list-btn" onClick={onAddList}>
         <i className="fas fa-plus"></i>
         <span>New List</span>
       </button>
